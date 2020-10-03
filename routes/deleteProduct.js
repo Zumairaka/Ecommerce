@@ -11,7 +11,7 @@ router.get('/:id', async function(req, res, next) {
             res.json({'message' : 'Error, deletion is unsuccessful', 'error' : 'true', 'data' : 'null'});
         }
         else {
-            res.json({'message' : 'Successfully deleted', 'error' : 'false', 'data' : data});
+            res.json({'message' : 'Successfully deleted', 'error' : 'false', 'data' : 'null'});
         }
     })
 });

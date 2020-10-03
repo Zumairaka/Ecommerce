@@ -4,6 +4,8 @@ const cors = require('cors');
 const bodyparser = require('body-parser');
 var mongoose = require('mongoose');
 
+require('dotenv').config();
+
 // routers
 var registerRouter = require('./routes/register');
 var addProductDetailsRouter = require('./routes/addProductDetails');
@@ -16,12 +18,22 @@ var loginRouter = require('./routes/login');
 var verifySponsorIdRouter = require('./routes/verifySponsorId');
 var deleteProductRouter = require('./routes/deleteProduct');
 var editProductRouter = require('./routes/editProduct');
+var forgotPasswordRouter = require('./routes/forgotPassword');
+var adminLoginRouter = require('./routes/adminLogin');
+var addCategoryRouter = require('./routes/addCategory');
+var addBrandRouter = require('./routes/addBrand');
+var deleteBrandRouter = require('./routes/deleteBrand');
+var deleteCategoryRouter = require('./routes/deleteCategory');
+var getCategoriesRouter = require('./routes/getCategories');
+var getBrandsRouter = require('./routes/getBrands');
 
 var app = express();
 
 //set up mongo connection
-mongoose.connect('mongodb://localhost:27017/RenzGlobal');
-//mongoose.connect("mongodb+srv://Zumairaka:parveen00@cluster0-rops0.mongodb.net/RenzGlobal?retryWrites=true&w=majority");
+//mongoose.connect('mongodb://localhost:27017/RenzGlobal');
+//console.log(process.env.DB_CONNECTION);
+mongoose.connect(process.env.DB_CONNECTION);
+
 mongoose.set('useFindAndModify', false);
 var db=mongoose.connection;
 db.on('error',(error)=>{
@@ -50,6 +62,14 @@ app.use('/searchByName', searchByNameRouter);
 app.use('/verifySponsorId', verifySponsorIdRouter);
 app.use('/deleteProduct', deleteProductRouter);
 app.use('/editProduct', editProductRouter);
+app.use('/forgotPassword', forgotPasswordRouter);
+app.use('/adminLogin', adminLoginRouter);
+app.use('/addCategory', addCategoryRouter);
+app.use('/addBrand', addBrandRouter);
+app.use('/deleteBrand', deleteBrandRouter);
+app.use('/deleteCategory', deleteCategoryRouter);
+app.use('/getCategories', getCategoriesRouter);
+app.use('/getBrands', getBrandsRouter);
 
 
 app.listen(process.env.PORT || 3000,function(){
